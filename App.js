@@ -24,10 +24,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { useTheme } from 'react-native-paper';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
+  const isDarkMode = useColorScheme() === 'light';
+  const { colors } = useTheme();
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -38,12 +39,12 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 20
           }}>
-          <LearnMoreLinks />
+<Text style={{ color: colors.accent }}>Yo!</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
