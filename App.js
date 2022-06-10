@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  
 } from 'react-native';
 
 import {
@@ -24,8 +25,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { useTheme } from 'react-native-paper';
+import { useTheme, Button } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const Stack = createNativeStackNavigator();
 const App = () => {
   const isDarkMode = useColorScheme() === 'light';
   const { colors } = useTheme();
@@ -34,22 +38,36 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            padding: 20
-          }}>
-<Text style={{ color: colors.accent }}>Yo!</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Welcome' }}
+      />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 };
+
+const HomeScreen = ({ navigation }) => {
+  return (
+    <Button icon="camera" mode="contained"onPress={() =>
+      navigation.navigate('Profile', { name: 'Jane' })
+    }>
+    Press me
+  </Button>
+   
+  );
+};
+const ProfileScreen = ({ navigation, route }) => {
+  return (
+        <Text>This is {route.params.name}'s profile</Text>
+    
+  );
+};
+
 
 const styles = StyleSheet.create({
   sectionContainer: {
