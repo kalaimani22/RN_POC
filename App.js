@@ -15,7 +15,6 @@ import {
   Text,
   useColorScheme,
   View,
-  
 } from 'react-native';
 
 import {
@@ -25,67 +24,30 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { useTheme, Button } from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {useTheme, Button} from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Detail from './screens/Detail';
+import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   const isDarkMode = useColorScheme() === 'light';
-  const { colors } = useTheme();
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const {colors} = useTheme();
 
   return (
     <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: 'Welcome' }}
-      />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-  );
-};
-
-const HomeScreen = ({ navigation }) => {
-  return (
-    <Button icon="camera" mode="contained"onPress={() =>
-      navigation.navigate('Profile', { name: 'Jane' })
-    }>
-    Press me
-  </Button>
-   
-  );
-};
-const ProfileScreen = ({ navigation, route }) => {
-  return (
-        <Text>This is {route.params.name}'s profile</Text>
-    
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Detail" component={Detail} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+
+
+const styles = StyleSheet.create({});
 
 export default App;
